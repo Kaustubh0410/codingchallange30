@@ -1,0 +1,52 @@
+public class MergeArrays {
+    public static void mergeInPlace(int[] arr1, int[] arr2) {
+        int m = arr1.length;
+        int n = arr2.length;
+
+        
+        int[] extendedArr1 = new int[m + n];
+        System.arraycopy(arr1, 0, extendedArr1, 0, m);
+
+        
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+
+        
+        while (i >= 0 && j >= 0) {
+            if (extendedArr1[i] > arr2[j]) {
+                extendedArr1[k--] = extendedArr1[i--];
+            } else {
+                extendedArr1[k--] = arr2[j--];
+            }
+        }
+
+        
+        while (j >= 0) {
+            extendedArr1[k--] = arr2[j--];
+        }
+
+        
+        System.arraycopy(extendedArr1, 0, arr1, 0, m);
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 3, 5, 7};
+        int[] arr2 = {2, 4, 6, 8};
+
+      
+        int[] extendedArr1 = new int[arr1.length + arr2.length];
+        System.arraycopy(arr1, 0, extendedArr1, 0, arr1.length);
+
+        mergeInPlace(extendedArr1, arr2);
+
+        
+        System.out.println("Merged arr1:");
+        for (int num : extendedArr1) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        
+        // Since arr2 is merged into arr1, arr2 is not used in the final output
+    }
+}
